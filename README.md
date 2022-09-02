@@ -1,5 +1,7 @@
 # QGIS2OpenDSS_EDENORTE
 
+See full publication:  https://microgrid.pucmm.edu.do/modeling-of-distribution-networks-with-high-renewables-penetration-in-open-source-software-opendss-qgis/
+
 <!-- wp:paragraph {"fontSize":"medium"} -->
 <p class="has-medium-font-size"><strong>Introduction</strong> - From GIS Layers to Power Simulation</p>
 <!-- /wp:paragraph -->
@@ -21,4 +23,38 @@
 <!-- wp:paragraph {"align":"justify"} -->
 <p class="has-text-align-justify">A working group has been created between PUCMM Researchers and EDENORTE´s Distribution, Planning and Network Study Department. The main objective of the group is to develop the processes and models to <em><strong>clean, fix, aggregate or remove incorrect, corrupted, incorrectly formatted, duplicated, or incomplete</strong></em> data within the GIS network dataset, in order to enable the data to be processed  by the <strong>QGIS2OPENDSS</strong> plugin in QGIS.</p>
 <!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Repository content</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Update (02-09-2022)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>QGIS version:</strong> QGIS 3.18.3<br><strong>QGIS2OpenDSS version</strong>: <a href="https://drive.google.com/drive/folders/1-5cYZdKdgDeJs1S0SwUIKKDuGMBl-Vnj?usp=sharing">Modified by PUCMM Team</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Content:</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>There are 3 folders:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li><strong>DSSAGO30 </strong>- Contains a sample of available residential, commercial, and industrial load profiles.</li><li><strong>GISAGO30 </strong>- Contains the GIS Layers:<br><br><ul><li>BT AEREA</li></ul><ul><li>MT AREA</li></ul><ul><li>MT AEREA</li></ul><ul><li>MT SOTERRADA</li></ul><ul><li>TRANSFORMADORES</li></ul><ul><li>SUBESTACIÓN</li></ul><ul><li>PV<br><br></li></ul></li><li><strong>QGIS2OPENDSS_AGO30/TEST1708 – </strong>Contains the output files of the QGIS2OpenDSS for the modelled circuit. VOLG101.</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p><strong>Limitations - </strong>Update (02-09-2022)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>There is no commercial nor industrial loads in these model</li><li>There are ~150 transformers with no load connection (missing data).</li><li>PV Layer is missing PVProfile and PVTemp curves</li></ul><ul><li>Data Dictionaries and Guidelines need to be updated</li>
+<!-- /wp:list -->
+
+
 
