@@ -53,7 +53,7 @@ See full publication:  https://microgrid.pucmm.edu.do/modeling-of-distribution-n
 <!-- /wp:paragraph -->
 
 <!-- wp:list -->
-<ul><li>There is no commercial nor industrial loads in these model</li><li>There are ~150 transformers with no load connection (missing data).</li><li>PV Layer is missing PVProfile and PVTemp curves</li></ul><ul><li>Data Dictionaries and Guidelines need to be updated</li>
+<ul><li>There is no commercial nor industrial loads in these model</li><li>There are ~150 transformers with no load connection (missing data).</li><li>PV Layer is missing PVProfile and PVTemp curves</li></ul><ul><li>Data Dictionaries and Guidelines need to be updated to reflect lastest changes</li>
 <!-- /wp:list -->
 
 
