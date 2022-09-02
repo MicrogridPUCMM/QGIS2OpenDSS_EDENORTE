@@ -1,0 +1,15 @@
+
+redirect Bibliotecas/bibliotecas.dss
+redirect AGO_LinesMV.dss
+redirect AGO_Substation.dss
+redirect AGO_Transformers.dss
+redirect AGO_LinesLV.dss
+redirect AGO_Loadshapes.dss
+redirect AGO_LoadsLV.dss
+redirect AGO_Monitors.dss
+!Layer Substation: SUB
+!Layers LinesMV_aer: MT_AEREA,
+!Layers LinesMV_sub: MT_SOTE,
+!Layers LinesLV_aer: BT_AEREA_pu,
+!Layers LoadsLV: CARGAS_BT_pu,
+!Layers Transformers: TR,

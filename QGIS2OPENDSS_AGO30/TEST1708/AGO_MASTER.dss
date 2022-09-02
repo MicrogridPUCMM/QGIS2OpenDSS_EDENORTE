@@ -1,0 +1,47 @@
+Clear
+
+New Circuit.AGO  baseKV=69 pu=1.05  R1=0.63 X1=6.72 R0=4.07 X0=15.55
+
+!R1=0.63 X1=6.72 R0=4.07 X0=15.55
+!r1=0  x1=0.001  r0=0.0001  x0=0.001 
+
+redirect Bibliotecas/bibliotecas.dss
+redirect AGO_LinesMV.dss
+redirect AGO_Substation.dss
+redirect AGO_Transformers.dss
+redirect AGO_LinesLV.dss
+redirect AGO_Loadshapes.dss
+redirect AGO_LoadsLV.dss
+redirect AGO_Monitors.dss
+!Layer Substation: SUB
+!Layers LinesMV_aer: MT_AEREA,
+!Layers LinesMV_sub: MT_SOTE,
+!Layers LinesLV_aer: BT_AEREA,
+!Layers LoadsLV: CARGAS_BT,
+!Layers Transformers: TR,
+
+Set voltagebases=[345, 115, 69, 13.8, 12.5, 7.22, 4.16, 0.48, 0.415, 0.208]
+Calcvoltagebases
+
+redirect AGO_LV_KVBaseLN.dss
+redirect AGO_MV_BaseKV_LN.dss
+
+! Define an energy meter -- needed for plot profile and yearly simulations
+New Energymeter.test element=line.MV3PAGO314 terminal=1 
+
+Set emergvminpu = 0.7
+!Set emergvmaxpu = 
+
+Set normvminpu=0.80
+Set normvmaxpu=1.10
+
+
+
+Solve 
+
+! Define bus coordinates
+Buscoords  AGO_BusListLV.csv
+Buscoords  AGO_BusListMV.csv 
+
+Plot Profile Phases=ALL
+
