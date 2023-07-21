@@ -1,0 +1,2 @@
+New Capacitor.cap0 bus1=BUSMVMAI490.1.2.3 phases=3 kVAr=100.0 kV=7.22 conn=wye !group=N/A
+New Capacitor.cap1 bus1=BUSMVMAI4.1.2.3 phases=3 kVAr=100.0 kV=7.22 conn=wye !group=N/A

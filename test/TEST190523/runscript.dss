@@ -1,0 +1,206 @@
+clear
+
+!-------------CIRCUITO NO PV-----------------
+compile "C:\Users\USER\OneDrive\Escritorio\USAID\OpenDSS\Correction\QGIS2OpenDSS-20052023\QGIS2OpenDSS-20052023\test\TEST190523\master-noPV.dss"
+solve
+
+! Define an energy meter -- needed for plot profile and yearly simulations
+New Energymeter.test element=line.MV3PMAI314 terminal=1 
+
+!Plot Voltages based on the following levels
+Set normvmaxpu=1.05
+set emergvminpu=0.85
+set normvminpu=0.95
+plot type=circuit quantity=Voltage Max=0 dots=no labels=no subs=no C1=$00FF0000  C2=$00808000 C3=$000000FF
+
+!Plot profile
+set normvmaxpu=1.05
+set normvminpu=0.95
+plot profile phases = primary
+plot profile phases = all
+
+!Plot Circuit Power flow
+set markercode=24
+set markregulators=yes
+plot circuit power 1ph=3
+
+!Add PV
+Redirect MAI_DG.dss
+
+!Plot network distribution with added PV
+Set DaisySize=2.5
+set markregulators=yes
+plot daisy power max=2000 dots=y buslist=(file=DGlist.txt )
+
+!Plot profile with added PV
+solve
+plot profile phases = primary
+
+
+!------- Run Time Series Analysis------------------------------------------------
+
+!No PV
+compile "C:\Users\USER\OneDrive\Escritorio\USAID\OpenDSS\Correction\QGIS2OpenDSS-20052023\QGIS2OpenDSS-20052023\test\TEST190523\master-noPV.dss"
+new monitor.MonFeed1h Element=line.MV3PMAI0 Terminal=1 Mode=1
+solve
+solve mode=daily stepsize=15m number=96
+export monitor MonFeed1h
+
+!Added PV
+compile "C:\Users\USER\OneDrive\Escritorio\USAID\OpenDSS\Correction\QGIS2OpenDSS-20052023\QGIS2OpenDSS-20052023\test\TEST190523\master-noPV.dss"
+Redirect MAI_DG.dss
+new monitor.MonFeed2h Element=line.MV3PMAI0 Terminal=1 Mode=1
+solve
+solve mode=daily stepsize=15m number=96
+export monitor MonFeed2h
+
+
+!----Voltage Change Test
+
+!No PV
+compile "C:\Users\USER\OneDrive\Escritorio\USAID\OpenDSS\Correction\QGIS2OpenDSS-20052023\QGIS2OpenDSS-20052023\test\TEST190523\master-noPV.dss"
+new monitor.MonFeedTest Element=line.MV3PMAI0 Terminal=1 Mode=0
+
+!Solving at 12:00
+solve mode=daily stepsize=1h number=1 hour=10
+solve
+
+save voltages
+
+!Added PV
+Redirect MAI_DG.dss
+
+!Disable all controls
+set controlmode=off
+
+!Solving a 12:00
+solve mode=daily stepsize=1h number=1 hour=10
+solve
+
+! Compare saved voltages to current case solved
+vdiff            !creates voltage difference file
+
+!Plot difference in voltage between no-PV and with-PV cases
+set markercode=24 nodewidth=2.5
+plot general quantity=1 max=3.5 min=0.0 dots=y labels=n object=MAI_VDIFF.csv C1=$0000FFFF C2=$000000FF
+
+!LV bus voltage at peak load
+compile "C:\Users\USER\OneDrive\Escritorio\USAID\OpenDSS\Correction\QGIS2OpenDSS-20052023\QGIS2OpenDSS-20052023\test\TEST190523\master-noPV.dss"
+Redirect MAI_DG.dss
+solve mode=snap
+export voltages
+
+!Losses at 12:00
+compile "C:\Users\USER\OneDrive\Escritorio\USAID\OpenDSS\Correction\QGIS2OpenDSS-20052023\QGIS2OpenDSS-20052023\test\TEST190523\master-noPV.dss"
+solve mode=daily stepsize=1h number=1 hour=10
+export losses LOSSES_NO_PV.CSV
+
+!Added PV
+compile "C:\Users\USER\OneDrive\Escritorio\USAID\OpenDSS\Correction\QGIS2OpenDSS-20052023\QGIS2OpenDSS-20052023\test\TEST190523\master-noPV.dss"
+Redirect MAI_DG.dss
+solve mode=daily stepsize=1h number=1 hour=10
+export losses LOSSES_WITH_PV.CSV
+
+!LV bus voltages
+compile "C:\Users\USER\OneDrive\Escritorio\USAID\OpenDSS\Correction\QGIS2OpenDSS-20052023\QGIS2OpenDSS-20052023\test\TEST190523\master-noPV.dss"
+Redirect MAI_DG.dss
+!Disable all controls
+set controlmode=off
+
+!Solving 24 times, 1 solution per hour, starting at 6:00
+
+solve mode=daily stepsize=1h number=1 hour=4
+solve
+export voltages v_h6.csv
+
+solve mode=daily stepsize=1h number=1 hour=5
+solve
+export voltages v_h7.csv
+
+solve mode=daily stepsize=1h number=1 hour=6
+solve
+export voltages v_h8.csv
+
+solve mode=daily stepsize=1h number=1 hour=7
+solve
+export voltages v_h9.csv
+
+solve mode=daily stepsize=1h number=1 hour=8
+solve
+export voltages v_h10.csv
+
+solve mode=daily stepsize=1h number=1 hour=9
+solve
+export voltages v_h11.csv
+
+solve mode=daily stepsize=1h number=1 hour=10
+solve
+export voltages v_h12.csv
+
+solve mode=daily stepsize=1h number=1 hour=11
+solve
+export voltages v_h13.csv
+
+solve mode=daily stepsize=1h number=1 hour=12
+solve
+export voltages v_h14.csv
+
+solve mode=daily stepsize=1h number=1 hour=13
+solve
+export voltages v_h15.csv
+
+solve mode=daily stepsize=1h number=1 hour=14
+solve
+export voltages v_h16.csv
+
+solve mode=daily stepsize=1h number=1 hour=15
+solve
+export voltages v_h17.csv
+
+solve mode=daily stepsize=1h number=1 hour=16
+solve
+export voltages v_h18.csv
+
+solve mode=daily stepsize=1h number=1 hour=17
+solve
+export voltages v_h19.csv
+
+solve mode=daily stepsize=1h number=1 hour=18
+solve
+export voltages v_h20.csv
+
+solve mode=daily stepsize=1h number=1 hour=19
+solve
+export voltages v_h21.csv
+
+solve mode=daily stepsize=1h number=1 hour=20
+solve
+export voltages v_h22.csv
+
+solve mode=daily stepsize=1h number=1 hour=21
+solve
+export voltages v_h23.csv
+
+solve mode=daily stepsize=1h number=1 hour=22
+solve
+export voltages v_h24.csv
+
+solve mode=daily stepsize=1h number=1 hour=23
+solve
+export voltages v_h25.csv
+
+solve mode=daily stepsize=1h number=1 hour=24
+solve
+export voltages v_h26.csv
+
+solve mode=daily stepsize=1h number=1 hour=25
+solve
+export voltages v_h27.csv
+
+solve mode=daily stepsize=1h number=1 hour=26
+solve
+export voltages v_h28.csv
+
+solve mode=daily stepsize=1h number=1 hour=27
+solve
+export voltages v_h29.csv

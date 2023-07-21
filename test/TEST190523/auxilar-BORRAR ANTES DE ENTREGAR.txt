@@ -1,0 +1,9 @@
+C:/Users/USER/OneDrive/Escritorio/USAID/OpenDSS/Correction/QGIS2OpenDSS-20052023/QGIS2OpenDSS-20052023/test/TEST190523
+
+open line.LV1FMAI1866
+open line.LV1FMAI1863
+open line.MV3PMAI670
+
+open line.MV3PMAI335
+open line.MV3PMAI55
+open line.LV1FMAI1093

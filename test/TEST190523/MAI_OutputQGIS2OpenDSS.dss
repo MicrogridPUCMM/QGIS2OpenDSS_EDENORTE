@@ -1,0 +1,94 @@
+Clear
+
+New Circuit.MAI  baseKV=69 pu=1.05  R1=0.63 X1=6.72 R0=4.07 X0=15.55
+
+redirect Bibliotecas/bibliotecas.dss
+redirect MAI_LinesMV.dss
+redirect MAI_Substation.dss
+redirect MAI_Transformers.dss
+redirect MAI_Capacitors.dss
+redirect MAI_LinesLV.dss
+redirect MAI_Loadshapes.dss
+redirect MAI_LoadsLV.dss
+redirect MAI_DG.dss
+redirect MAI_Monitors.dss
+!Layer Substation: SUB_1207
+!Layers LinesMV_aer: MT_AEREA_1207,
+!Layers LinesMV_sub: MT_SOTE,
+!Layer Capacitors: CAPACITOR_16012023
+!Layers LinesLV_aer: BT_AEREA_1205,
+!Layers LoadsLV: CARGAS_BT_1207,
+!Layers Transformers: TR_1207,
+
+Set voltagebases=[345, 115, 69, 13.8, 12.5, 7.22, 4.16, 0.48, 0.415, 0.208]
+Calcvoltagebases
+
+redirect MAI_LV_KVBaseLN.dss
+redirect MAI_MV_BaseKV_LN.dss
+
+! Define bus coordinates
+Buscoords  MAI_BusListLV.csv
+Buscoords  MAI_BusListMV.csv 
+
+! Define an energy meter -- needed for plot profile and yearly simulations
+
+New Energymeter.test element=line.MV3PMAI314 terminal=1 
+
+New monitor.powers element=transformer.HVMV terminal=1 ppolar=no mode=1
+!new monitor.PV1FMAI18 element=PVSystem.PV1FMAI18 terminal=1 mode=0
+New monitor.voltages element=transformer.HVMV terminal=2 mode=0
+!New monitor.powersPV element=transformer.HVMV terminal=1 ppolar=no mode=1
+
+set mode = daily
+set number= 24
+set stepsize = 1h
+!set hour = 19
+
+Solve  
+
+!--------------Plotting---------------------------------------------
+
+Export monitors powers
+Plot monitor object= powers channels=(1 3 5)
+
+Export monitors voltages
+Plot monitor object= voltages channels=(1 3 5 )
+
+!plot voltages
+Set normvmaxpu=1.05
+set emergvminpu=0.85
+set normvminpu=0.95
+plot type=circuit quantity=Voltage Max=0 dots=no labels=no subs=no C1=$00FF0000  C2=$00808000 C3=$000000FF
+
+!plot profile
+Set normvmaxpu=1.05
+set normvminpu=0.95
+plot profile phases = primary
+plot profile phases = all
+
+!Plot Circuit Power flow
+set markercode=24
+set markregulators=yes
+plot circuit power 1ph=3
+
+! typical circuit plotting scripts
+plot type=circuit quantity=Losses Max=20   dots=yes labels=no subs=no C1=$00FF0000
+plot type=circuit quantity=Power  Max=2000 dots=yes labels=no subs=no C1=$00FF0000
+
+plot type=circuit quantity=Power    Max=2000 dots=n labels=n subs=y C1=Blue 1phlinestyle=3
+plot type=circuit quantity=Voltage Max=0.95 dots=n labels=n subs=y C1=Blue  1phlinestyle=3
+
+Plot monitor object= PV1FMAI18 ppolar=no mode=1
+
+
+!----Voltage Change Test
+
+plot profile phases = all
+redirect MAI_DG.dss
+!Disable all controls
+set controlmode=off
+solve mode=snap
+plot profile phases = all
+
+show powers kva elements
+

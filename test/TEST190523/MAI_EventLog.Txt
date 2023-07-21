@@ -1,0 +1,2 @@
+Hour=0, Sec=0, ControlIter=1, Element=Regulator.hvmv, Action= CHANGED -6 TAPS TO 0.9625.
+Hour=0, Sec=0, ControlIter=2, Element=Regulator.hvmv, Action= CHANGED -2 TAPS TO 0.95.
