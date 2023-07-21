@@ -1,7 +1,5 @@
 # QGIS2OpenDSS_EDENORTE
 
-See full publication:  https://microgrid.pucmm.edu.do/modeling-of-distribution-networks-with-high-renewables-penetration-in-open-source-software-opendss-qgis/
-
 <!-- wp:paragraph {"fontSize":"medium"} -->
 <p class="has-medium-font-size"><strong>Introduction</strong> - From GIS Layers to Power Simulation</p>
 <!-- /wp:paragraph -->
